@@ -6,6 +6,9 @@
 import connect, manipulation, sys, os, platform
 import logging
 
+reload(sys)
+sys.setdefaultencoding('utf-8')
+
 def replace_all(text, dic):
     for i, j in dic.iteritems():
       text = text.replace(i, j, 999)
