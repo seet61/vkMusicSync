@@ -3,16 +3,24 @@
 """Данный скрипт предназначен для синхронизации плейлиста пользователя
     на локальный компьютер"""
 
-import connect, manipulation, sys, os
+import connect, manipulation, sys, os, platform
 import logging
 
 def replace_all(text, dic):
-  for i, j in dic.iteritems():
-    text = text.replace(i, j, 999)
-  return text
+    for i, j in dic.iteritems():
+      text = text.replace(i, j, 999)
+    return text
 
 def check_symbols(name):
+    """Удаляем некорректные символы из названия файла"""
     return replace_all(name, {"|":"", "\\":"", "/":"", ":":"", "*":"", "?":"", "\"":"", "<":"", ">":"", "'":""})
+
+def check_platform(name):
+    if platform.system() == 'Windows':
+        name = name.encode('cp1251')
+    else:
+        name = name.encode('utf8')
+    return name
 
 if __name__ == '__main__':
     if os.name == 'nt':
@@ -39,7 +47,7 @@ if __name__ == '__main__':
             artist, title, url = profile.track_info(i)
             name = artist + ' - ' + title
             name = check_symbols(name)
-            name = unicode(name)
+            name = check_platform(name)
             check = manip.check_track(name)
             if check == False:
                 manip.download(url, name, dirr)

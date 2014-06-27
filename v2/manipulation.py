@@ -25,8 +25,6 @@ class manip:
 
     def check_track(self, name):
         """Проверяем не скачан ли данный файл"""
-        #name = '%s.mp3' % name.encode('cp1251')
-        name = '%s.mp3' % name.encode('utf8')
         if name in os.listdir(os.getcwd()):
             print u'Файл есть'
             return True
@@ -41,7 +39,6 @@ class manip:
         file     = request.URLopener()
         response = file.retrieve(url)
         response = list(response)[0]
-        name     = name.encode('utf8')
         if os.path.exists(response):
             print u'Перемещаем файл в директорию {0}'.format(dirr)
             shutil.move(response, dirr)
