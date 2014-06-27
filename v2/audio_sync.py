@@ -6,18 +6,14 @@
 import connect, manipulation, sys, os
 import logging
 
+def replace_all(text, dic):
+  for i, j in dic.iteritems():
+    text = text.replace(i, j, 999)
+  return text
+
 def check_symbols(name):
-    name = name.replace("|", "")
-    name = name.replace("\\", "")
-    name = name.replace("\/", "")
-    name = name.replace(":", "")
-    name = name.replace("*", "")
-    name = name.replace("?", "")
-    name = name.replace("\"", "")
-    name = name.replace("<", "")
-    name = name.replace(">", "")
-    return name
-        
+    return replace_all(name, {"|":"", "\\":"", "/":"", ":":"", "*":"", "?":"", "\"":"", "<":"", ">":"", "'":""})
+
 if __name__ == '__main__':
     if os.name == 'nt':
         tmp = os.environ["TMP"]
@@ -34,15 +30,16 @@ if __name__ == '__main__':
             elif sys.argv[i] == '-dir':
                 path = sys.argv[i+1]
         profile = connect.connect_vk(login, password)
-        user = profile.my_id()
+        user    = profile.my_id()
         counter = profile.audio_count(user)
-        manip = manipulation.manip()
-        dirr = manip.check_dir(path)
+        manip   = manipulation.manip()
+        dirr    = manip.check_dir(path)
         for i in xrange(counter):
             print u'-'*80
             artist, title, url = profile.track_info(i)
-            name = artist + '-' + title
+            name = artist + ' - ' + title
             name = check_symbols(name)
+            name = unicode(name)
             check = manip.check_track(name)
             if check == False:
                 manip.download(url, name, dirr)
