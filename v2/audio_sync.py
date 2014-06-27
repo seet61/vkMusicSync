@@ -16,13 +16,13 @@ def replace_all(text, dic):
 
 def check_symbols(name):
     """Удаляем некорректные символы из названия файла"""
-    return replace_all(name, {"|":"", "\\":"", "/":"", ":":"", "*":"", "?":"", "\"":"", "<":"", ">":"", "'":""})
+    return replace_all(name, {"|":"", "\\":"", "/":"", ":":"", "*":"", "?":"", "\"":"", "<":"", ">":"", "'":"", "ツ":""})
 
 def check_platform(name):
     if platform.system() == 'Windows':
         name = name.encode('cp1251')
     else:
-        name = name.encode('utf8')
+        name = unicode(name, errors='replace')
     return name
 
 if __name__ == '__main__':

@@ -33,7 +33,7 @@ class connect_vk:
             elif key == 'url':
                 url = self.tracks["items"][i][key]
         print u'Получаем данные о track № {0}'.format(i)
-        print u'artist:', artist,u'title:', title
+        print u'artist:', artist ,u'title:', title
         logging.info(u'Получаем данные о track № {0}'.format(i))
         logging.info(u'{0} - {1}'.format(artist, title))
         return artist, title, url

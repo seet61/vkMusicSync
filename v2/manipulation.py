@@ -25,7 +25,7 @@ class manip:
 
     def check_track(self, name):
         """Проверяем не скачан ли данный файл"""
-        if name in os.listdir(os.getcwd()):
+        if '%s.mp3' % name in os.listdir(os.getcwd()):
             print u'Файл есть'
             return True
         else:
