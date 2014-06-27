@@ -22,7 +22,7 @@ def check_platform(name):
     if platform.system() == 'Windows':
         name = name.encode('cp1251')
     else:
-        name = unicode(name, errors='replace')
+        name = name.encode('utf8')
     return name
 
 if __name__ == '__main__':
